@@ -19,10 +19,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/app/secure/**").hasAnyRole("ADMIN", "USER").and().formLogin() // login
-				.loginPage("/app/login").loginProcessingUrl("/app-login").usernameParameter("app_username")
-				.passwordParameter("app_password").defaultSuccessUrl("/app/secure/article-details").and().logout() // logout																				// configuration
-				.logoutUrl("/app-logout").logoutSuccessUrl("/app/login").and().exceptionHandling() // exception handling configuration
+		
+				.antMatchers("/app/secure/**")
+				.hasAnyRole("ADMIN", "USER")
+				.and()
+				 
+				// login
+				.formLogin()
+				.loginPage("/app/login")
+				.loginProcessingUrl("/app-login")
+				.usernameParameter("app_username")
+				.passwordParameter("app_password")
+				.defaultSuccessUrl("/app/secure/article-details")
+				.and()
+				
+				// logout
+				.logout() 
+				.logoutUrl("/app-logout")
+				.logoutSuccessUrl("/app/login")
+				.and()
+				.exceptionHandling() // exception handling 
 				.accessDeniedPage("/app/error");
 	}
 
